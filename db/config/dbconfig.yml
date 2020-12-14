@@ -1,0 +1,5 @@
+development:
+  dialect: postgres
+  datasource: dbname=restaurant_assistant sslmode=disable user=postgres password=postgres
+  dir: db/migrations
+  table: migrations
