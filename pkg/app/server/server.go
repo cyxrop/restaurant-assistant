@@ -10,8 +10,8 @@ import (
 
 	"restaurant-assistant/pkg/app/service"
 	"restaurant-assistant/pkg/base"
-	"restaurant-assistant/pkg/common"
 	"restaurant-assistant/pkg/entity"
+	"restaurant-assistant/pkg/utils"
 )
 
 type RestaurantAssistantServer struct {
@@ -67,7 +67,7 @@ func (ras *RestaurantAssistantServer) Login(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, common.FormatResponse(tokenPair))
+	ctx.JSON(http.StatusOK, utils.FormatResponse(tokenPair))
 }
 
 func (ras *RestaurantAssistantServer) RefreshToken(ctx *gin.Context) {
@@ -77,7 +77,7 @@ func (ras *RestaurantAssistantServer) RefreshToken(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, common.FormatResponse(tokenPair))
+	ctx.JSON(http.StatusOK, utils.FormatResponse(tokenPair))
 }
 
 func (ras *RestaurantAssistantServer) Logout(ctx *gin.Context) {
@@ -88,7 +88,7 @@ func (ras *RestaurantAssistantServer) Logout(ctx *gin.Context) {
 	}
 
 	response := entity.NewBaseResponse("successfully logged out")
-	ctx.JSON(http.StatusOK, common.FormatResponse(response))
+	ctx.JSON(http.StatusOK, utils.FormatResponse(response))
 }
 
 func (ras *RestaurantAssistantServer) CreateUser(ctx *gin.Context) {
@@ -104,7 +104,7 @@ func (ras *RestaurantAssistantServer) CreateUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, common.FormatResponse(user))
+	ctx.JSON(http.StatusOK, utils.FormatResponse(user))
 }
 
 func (ras *RestaurantAssistantServer) UpdateUser(ctx *gin.Context) {
@@ -114,7 +114,7 @@ func (ras *RestaurantAssistantServer) UpdateUser(ctx *gin.Context) {
 		return
 	}
 
-	if base.IsEmptyUUID(u.ID) {
+	if utils.IsEmptyUUID(u.ID) {
 		base.SendNewError(ctx, base.ErrInvalidParameters, "user id required")
 		return
 	}
@@ -132,7 +132,7 @@ func (ras *RestaurantAssistantServer) UpdateUser(ctx *gin.Context) {
 
 	fmt.Printf("user: %+v", &u)
 
-	ctx.JSON(http.StatusOK, common.FormatResponse(&u))
+	ctx.JSON(http.StatusOK, utils.FormatResponse(&u))
 }
 
 func (ras *RestaurantAssistantServer) CreateProduct(ctx *gin.Context) {
@@ -159,7 +159,7 @@ func (ras *RestaurantAssistantServer) CreateProduct(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, common.FormatResponse(newProduct))
+	ctx.JSON(http.StatusOK, utils.FormatResponse(newProduct))
 }
 
 func (ras *RestaurantAssistantServer) CreateOrder(ctx *gin.Context) {
@@ -183,7 +183,7 @@ func (ras *RestaurantAssistantServer) CreateOrder(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, common.FormatResponse(newOrder))
+	ctx.JSON(http.StatusOK, utils.FormatResponse(newOrder))
 
 	ctx.Next()
 }

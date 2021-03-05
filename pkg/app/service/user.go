@@ -7,9 +7,9 @@ import (
 	"go.uber.org/zap"
 
 	"restaurant-assistant/pkg/base"
-	"restaurant-assistant/pkg/common"
 	"restaurant-assistant/pkg/entity"
 	"restaurant-assistant/pkg/storage/database/repository"
+	"restaurant-assistant/pkg/utils"
 )
 
 type UserService struct {
@@ -51,7 +51,7 @@ func (us *UserService) CreateUser(ctx context.Context, user entity.User) (*entit
 		)
 	}
 
-	user.Password, err = common.HashPassword(user.Password)
+	user.Password, err = utils.HashPassword(user.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (us *UserService) UpdateUser(ctx context.Context, user entity.User) (*entit
 		)
 	}
 
-	user.Password, err = common.HashPassword(user.Password)
+	user.Password, err = utils.HashPassword(user.Password)
 	if err != nil {
 		return nil, err
 	}

@@ -10,10 +10,10 @@ import (
 	"go.uber.org/zap"
 
 	"restaurant-assistant/pkg/base"
-	"restaurant-assistant/pkg/common"
 	"restaurant-assistant/pkg/entity"
 	"restaurant-assistant/pkg/storage/cache"
 	"restaurant-assistant/pkg/storage/database/repository"
+	"restaurant-assistant/pkg/utils"
 )
 
 // TODO: make Service Interfaces
@@ -75,7 +75,7 @@ func (as *AuthenticationService) Login(ctx context.Context, username string, pas
 		return nil, err
 	}
 
-	if !common.CheckPasswordHash(password, user.Password) {
+	if !utils.CheckPasswordHash(password, user.Password) {
 		return nil, base.NewError(
 			base.ErrInvalidParameters,
 			"user with specified parameters was not found",
@@ -193,7 +193,7 @@ func (as *AuthenticationService) GetUserFromContext(ctx context.Context) (*entit
 }
 
 func (as *AuthenticationService) CreateTokenPair(ctx context.Context, userID uuid.UUID) (*entity.TokenPair, error) {
-	tokensPair, err := common.CreateTokenPair(userID)
+	tokensPair, err := utils.CreateTokenPair(userID)
 	if err != nil {
 		return nil, err
 	}

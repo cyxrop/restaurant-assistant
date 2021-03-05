@@ -4,13 +4,13 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"restaurant-assistant/pkg/base"
-	"restaurant-assistant/pkg/common"
 	"restaurant-assistant/pkg/entity"
+	"restaurant-assistant/pkg/utils"
 )
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		accessDetails, err := common.VerifyToken(ctx.Request)
+		accessDetails, err := utils.VerifyToken(ctx.Request)
 		if err != nil {
 			base.SendError(ctx, err)
 			ctx.Abort()
